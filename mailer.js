@@ -1,7 +1,10 @@
+var config = require('./config/default');
+var sendMail =config.sendMail;
+var sendPass=config.sendPass;
 var mail = require('mail').Mail({
     host: 'smtp.gmail.com',
-    username: 'inspeerodev@gmail.com',
-    password: 'Insper160113'
+    username: sendMail,
+    password: sendPass
   });
   
   class Mailer{ 
@@ -10,8 +13,8 @@ var mail = require('mail').Mail({
        /*** ***/
   var email 	= require("emailjs/email");
   var server 	= email.server.connect({
-     user:    "inspeerodev@gmail.com", 
-     password:"Insper160113", 
+     user:    sendMail, 
+     password:sendPass, 
      host:    "smtp.gmail.com", 
      ssl:     true
   });
@@ -19,7 +22,7 @@ var mail = require('mail').Mail({
   // send the message and get a callback with an error or details of the message that was sent
   server.send({
      text:    msg, 
-     from:    "inspeerodev@gmail.com", 
+     from:    sendMail, 
      to:      to,
      cc:      "",
      subject: subject

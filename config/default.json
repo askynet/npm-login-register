@@ -8,6 +8,6 @@
       }
     },
     "Port":2019,
-    "sendMail":"inspeerodev@gmail.com",
-    "sendPass":"Insper160113"
+    "sendMail":"youremail@host.com",
+    "sendPass":"yourpassword"
 }
