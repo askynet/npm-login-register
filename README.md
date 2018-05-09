@@ -20,12 +20,12 @@ Currently this package is only for *MongoDB users*.
 ## Import package and instantiate
 ```
 const LoginRegister=require('npm-login-register');
-var handler=new LoginRegister(dbname,tableName,'mongodb');
+var handler=new LoginRegister(dbName,tableName,'mongodb');
 ```
 ## User Registration
 ```
 userData={
-    Email:'youemail@host.com',
+    Email:'youremail@host.com',
     Name:"aka",
     Password:123456,
     ......,
