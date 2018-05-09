@@ -8,15 +8,16 @@ And for all this you need to just install npm package and implement followings m
 Currently this package is only for MongoDB users.
 
 ## Install
+```
   npm install npm-login-register
-  
+```  
 ## Import package and instantiate
-
+```
 const LoginRegister=require('npm-login-register');
 var handler=new LoginRegister('mydb','users','mongodb');
-
+```
 ## User Registration
-
+```
 userData={
     Email:'aahire@inspeero.com',
     Name:"aka",
@@ -27,30 +28,40 @@ userData={
 handler.userRegister(userData,function(result){
     console.log(result);
 });
+```
 
 ## User Login
+```
 //for login
 handler.userLogin(email,password,function(result){
     console.log(result);
 });
+```
 
 ## Check User Token
+
+```
 //check for token
 
 handler.checkToken(userid,usertoken,function(result){
     console.log(result);
 });
+```
 
 ## Forgot Password
+```
 //forgotPassword
 
 handler.forgotPassword(email,function(result){
     console.log(result);
 });
-
+```
 ## Change Password
+
+```
 //change password
 
 handler.changePassword(email,oldpass,newpass,function(result){
     console.log(result);
 });
+```
