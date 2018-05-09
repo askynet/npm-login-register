@@ -1,6 +1,6 @@
 # npm-login-register
 
-npm-login-register is handle all users operation such as user registration,user login, check user token ,change user password and forgot password functionality in your own database.
+npm-login-register is handle all user related basic operations such as user registration,user login, check user token ,change user password and forgot password functionality in your own database.
 
 This plugin is develop to cut development task for all above basic functionalities. 
 And for all this you need to just install npm package and implement followings methods as per your need.
@@ -29,7 +29,7 @@ handler.userRegister(userData,function(result){
     console.log(result);
 });
 ```
-### Result
+#### Result
   ```
   [1/0,'message']
   result[0] => 0 => error occur
@@ -42,7 +42,7 @@ handler.userLogin(email,password,function(result){
     console.log(result);
 });
 ```
-### Result
+#### Result
   ```
   [1/0,'message']
   result[0] => 0 => error occur
@@ -57,7 +57,7 @@ handler.checkToken(userid,usertoken,function(result){
     console.log(result);
 });
 ```
-### Result
+#### Result
   ```
   [1/0,'message']
   result[0] => 0 => error occur
@@ -71,7 +71,7 @@ handler.forgotPassword(email,function(result){
     console.log(result);
 });
 ```
-### Result
+#### Result
   ```
   [1/0,'message']
   result[0] => 0 => error occur
