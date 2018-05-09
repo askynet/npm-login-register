@@ -11,7 +11,7 @@ Currently this package is only for MongoDB users.
 ```
   npm install npm-login-register
 ```  
-###For Email Sending and Database setup
+##### For Email Sending and Database setup
     ```
     For DB Host config and mail sending
     Change in node_modules/npm-login-register/config/default.json
