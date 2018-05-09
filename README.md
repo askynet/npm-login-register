@@ -1,6 +1,6 @@
 # npm-login-register
 
-npm-login-register is handle all user related basic operations such as *user registration,user login,check user token,
+*npm-login-register* is handle all user related basic operations such as *user registration,user login,check user token,
 change user password and forgot password* functionality in relative database.
 
 This plugin is develop to cut development task for all above basic functionalities. 
