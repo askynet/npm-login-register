@@ -1,11 +1,11 @@
 # npm-login-register
 
-npm-login-register is handle all user related basic operations such as user registration,user login, check user token ,change user password and forgot password functionality in your own database.
+npm-login-register is handle all user related basic operations such as *user registration,user login, check user token ,change user password and forgot password* functionality in relative database.
 
 This plugin is develop to cut development task for all above basic functionalities. 
 And for all this you need to just install npm package and implement followings methods as per your need.
 
-Currently this package is only for MongoDB users.
+Currently this package is only for *MongoDB users*.
 
 ## Install
 ```
