@@ -19,8 +19,19 @@ Currently this package is only for *MongoDB users*.
     
 ## Import package and instantiate
 ```
+/*
+  dbName => database name
+  tableName => table / collection name
+  dbType => 'mongodb' / 'mysql'
+*/
+  
 const LoginRegister=require('npm-login-register');
-var handler=new LoginRegister(dbName,tableName,'mongodb');
+var dbName="mydb";
+var tableName="user";
+var dbType="mongodb";
+var handler=new LoginRegister(dbName,tableName,dbType);
+
+ 
 ```
 ## User Registration
 ```
