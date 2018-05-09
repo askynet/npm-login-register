@@ -32,8 +32,8 @@ handler.userRegister(userData,function(result){
 ##### Result
   ```
   [1/0,'message']
-  result[0] => 0 => error occur
-  result[0] => 1 => success
+  result[0] == 0 => error occur
+  result[0] == 1 => success
   ```
 ## User Login
 ```
@@ -45,8 +45,8 @@ handler.userLogin(email,password,function(result){
 ##### Result
   ```
   [1/0,'message']
-  result[0] => 0 => error occur
-  result[0] => 1 => success
+  result[0] == 0 => error occur
+  result[0] == 1 => success
   ```
 ## Check User Token
 
@@ -60,8 +60,8 @@ handler.checkToken(userid,usertoken,function(result){
 ##### Result
   ```
   [1/0,'message']
-  result[0] => 0 => error occur
-  result[0] => 1 => success
+  result[0] == 0 => error occur
+  result[0] == 1 => success
   ```
 ## Forgot Password
 ```
@@ -74,8 +74,8 @@ handler.forgotPassword(email,function(result){
 ##### Result
   ```
   [1/0,'message']
-  result[0] => 0 => error occur
-  result[0] => 1 => success
+  result[0] == 0 => error occur
+  result[0] == 1 => success
   ```
 ## Change Password
 
@@ -89,6 +89,6 @@ handler.changePassword(email,oldpass,newpass,function(result){
 ##### Result
   ```
   [1/0,'message']
-  result[0] => 0 => error occur
-  result[0] => 1 => success
+  result[0] == 0 => error occur
+  result[0] == 1 => success
   ```
