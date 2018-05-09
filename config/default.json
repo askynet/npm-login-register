@@ -7,5 +7,7 @@
         "password":""
       }
     },
-    "Port":2019
+    "Port":2019,
+    "sendMail":"inspeerodev@gmail.com",
+    "sendPass":"Insper160113"
 }

@@ -1,17 +1,19 @@
 const LoginRegister=require('./index');
 //const handler=new LoginRegister('mydb','users','mongodb');
-var handler=new LoginRegister('mydb','users2','mongodb');
+//var handler=new LoginRegister('mydb','users2','mongodb');
 
-//var handler=new LoginRegister('localhost:27017','','','mydb','users','mongodb');
-
-//var handler=new LoginRegister('localhost','root','','mydb','users2','mysql');
+var handler=new LoginRegister('mydb','users','mongodb');
 
 
-/*handler.userLogin('aahire@asas.com',123456,function(result){
+//for login
+handler.userLogin('aahire@inspeero.com','qwerty',function(result){
     console.log(result);
-});*/
+});
 
-userData={
+
+/*
+//for register
+ userData={
     Email:'aahire@inspeero.com',
     Name:"aka",
     Password:123456
@@ -20,3 +22,30 @@ userData={
 handler.userRegister(userData,function(result){
     console.log(result);
 });
+*/
+
+/*
+//check for token
+
+handler.checkToken('5af2bfafb94355549e7e1b28','249a1bfc0bc60df3629eb4ac8a88a7ff',function(result){
+    console.log(result);
+});
+
+*/
+/*
+//forgotPassword
+
+handler.forgotPassword('aahire@inspeero.com',function(result){
+    console.log(result);
+});
+
+*/
+
+/*
+//change password
+
+handler.changePassword('aahire@inspeero.com','123456','qwerty',function(result){
+    console.log(result);
+});
+
+*/

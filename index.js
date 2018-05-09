@@ -5,10 +5,13 @@ var host = config.Database.dbConfig.host;
 var port = config.Database.dbConfig.port;
 var db_user = config.Database.dbConfig.port;
 var db_password = config.Database.dbConfig.port;
+var sendMail =config.sendMail;
+var sendPass=config.sendPass;
 var email_validator = require('email-validator');
 var getHashPWD=require('./getHashPWD');
+var mailer=require('./mailer');
 const mysql = require('mysql');
-
+var mongodb = require('mongodb');
 
 module.exports =class LoginRegister{
 	constructor(dbName,userTable,dbType){
@@ -163,6 +166,121 @@ module.exports =class LoginRegister{
 			callback(new Array(0,msg)); 
 		}
 	}
+	checkToken(userId,token,callback){
+		var thisVar=this;
+		this.getDbConnect(function(database1){
+			if(database1!=null){
+				try{
+					switch(thisVar.dbType){
+						case 'mongodb':
+					var _userId=new mongodb.ObjectId(userId);
+				    database1.collection(thisVar.userTable).findOne({ "_id": _userId ,Token:token }).then(function (result) {
+					  if (result==null){
+						callback(new Array(0,'authentication failed')); 
+					  }else{
+						callback(new Array(1,'valid user')); 
+					  }
+					});
+					break;
 
+					case 'mysql':
+					callback(new Array(0,'db connection problem')); 
+					break;
+				}
+				}catch(e){
+					//console.log(e);
+					callback(new Array(0,'invalid userid')); 
+				}
+			}else{
+				callback(new Array(0,'db connection problem')); 
+			}
+		});
+	}
+	forgotPassword(email,callback){
+		var thisVar=this;
+		this.getDbConnect(function(database1){
+			if(database1!=null){
+				try{
+					switch(thisVar.dbType){
+						case 'mongodb':
+				    database1.collection(thisVar.userTable).findOne({ "Email":email }).then(function (result) {
+					  if (result==null){
+						callback(new Array(1,'if your email id is present in db then we will sent you latest password on your mailbox')); 
+					  }else{
+						var password = Math.random().toString(36).slice(-8);
+						var hash=getHashPWD.createHash(password);
+						var newPass=hash.hash;
+						var newToken=hash.token;
+						database1.collection(thisVar.userTable).updateOne({Email:email},{ $set: {"Password":newPass,"Token":newToken}}, function(err, result) {
+							if (err) {
+								callback(new Array(0,'something went wrong..please try again later')); 
+							}else{
+								mailer.sendMail(email,'Forgot Password','Your new password is = '+password,function(isSend){
+									if(isSend){
+										callback(new Array(1,'if your email id is present in db then we will sent you latest password on your mailbox'));
+									}else{
+										callback(new Array(0,'something went wrong..please check email id')); 
+									}
+								});
+								}
+						});
+						 
+					  }
+					});
+					
+					break;
+					case 'mysql':
+					callback(new Array(0,'db connection problem')); 
+					break;
+				 }
+				}catch(e){
+					console.log(e);
+					callback(new Array(0,'something went wrong..please check email id')); 
+				}
+			}else{
+				callback(new Array(0,'db connection problem')); 
+			}
+		});
+	}
+
+	changePassword(email,oldpass,newpass,callback){
+		var thisVar=this;
+		if(oldpass!=newpass && oldpass.toString().length>5 && newpass.toString().length>5){
+			this.userLogin(email,oldpass,function(result){
+				if(parseInt(result[0])==1){
+					thisVar.getDbConnect(function(database1){
+					var hash=getHashPWD.createHash(newpass);
+						var newPass=hash.hash;
+						var newToken=hash.token;
+						switch(thisVar.dbType){
+							case 'mongodb':
+						database1.collection(thisVar.userTable).updateOne({Email:email},{ $set: {"Password":newPass,"Token":newToken}}, function(err, result) {
+							if (err) {
+								callback(new Array(0,'something went wrong..please try again later')); 
+							}else{
+								callback(new Array(1,'password changed successfully')); 	
+							}
+						});
+						break;
+					case 'mysql':
+					callback(new Array(0,'db connection problem')); 
+					break;
+					  }
+					});
+				}else{
+					callback(new Array(0,'invalid old password'));
+				}
+			});
+		}else{
+			if(oldpass.toString().length<6 || newpass.toString().length<6){
+				callback(new Array(0,'password length should be 6 char long'));
+			}
+			else{
+				if(oldpass==newpass){
+					callback(new Array(0,'new password and old password must be different'));
+				}
+			}
+		}
+	}
 }
 
