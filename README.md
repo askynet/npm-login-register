@@ -29,7 +29,12 @@ handler.userRegister(userData,function(result){
     console.log(result);
 });
 ```
-
+### Result
+  ```
+  [1/0,'message']
+  result[0] => 0 => error occur
+  result[0] => 1 => success
+  ```
 ## User Login
 ```
 //for login
@@ -37,7 +42,12 @@ handler.userLogin(email,password,function(result){
     console.log(result);
 });
 ```
-
+### Result
+  ```
+  [1/0,'message']
+  result[0] => 0 => error occur
+  result[0] => 1 => success
+  ```
 ## Check User Token
 
 ```
@@ -47,7 +57,12 @@ handler.checkToken(userid,usertoken,function(result){
     console.log(result);
 });
 ```
-
+### Result
+  ```
+  [1/0,'message']
+  result[0] => 0 => error occur
+  result[0] => 1 => success
+  ```
 ## Forgot Password
 ```
 //forgotPassword
@@ -56,6 +71,12 @@ handler.forgotPassword(email,function(result){
     console.log(result);
 });
 ```
+### Result
+  ```
+  [1/0,'message']
+  result[0] => 0 => error occur
+  result[0] => 1 => success
+  ```
 ## Change Password
 
 ```
@@ -65,3 +86,9 @@ handler.changePassword(email,oldpass,newpass,function(result){
     console.log(result);
 });
 ```
+### Result
+  ```
+  [1/0,'message']
+  result[0] => 0 => error occur
+  result[0] => 1 => success
+  ```
