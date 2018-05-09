@@ -13,8 +13,8 @@ Currently this package is only for MongoDB users.
 ```  
 ##### For Email Sending and Database setup
 
-    Change DB Host and credentials and sendEmail and sendPass as per yours
-    in *node_modules/npm-login-register/config/default.json*
+    Change DB Host and credentials and sendEmail and sendPass as per yours in
+    node_modules/npm-login-register/config/default.json
     
 ## Import package and instantiate
 ```
