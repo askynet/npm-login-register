@@ -86,7 +86,7 @@ handler.changePassword(email,oldpass,newpass,function(result){
     console.log(result);
 });
 ```
-### Result
+##### Result
   ```
   [1/0,'message']
   result[0] => 0 => error occur
