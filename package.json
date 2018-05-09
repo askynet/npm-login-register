@@ -1,0 +1,17 @@
+{
+  "name": "npm-login-register",
+  "version": "1.0.0",
+  "description": "Easy way to register user and get validation for further login and accesing any app with backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Akash Ahire <akasha3001@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "email-validator": "^2.0.3",
+    "mongodb": "^2.2.33",
+    "mysql": "^2.15.0"
+  }
+}
