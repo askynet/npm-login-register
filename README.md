@@ -29,7 +29,7 @@ const LoginRegister=require('npm-login-register');
 var dbName="mydb";
 var tableName="user";
 var dbType="mongodb";
-var handler=new LoginRegister(dbName,tableName,dbtType);
+var handler=new LoginRegister(dbName,tableName,dbType);
 
  
 ```
