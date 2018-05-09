@@ -29,7 +29,7 @@ handler.userRegister(userData,function(result){
     console.log(result);
 });
 ```
-#### Result
+##### Result
   ```
   [1/0,'message']
   result[0] => 0 => error occur
@@ -42,7 +42,7 @@ handler.userLogin(email,password,function(result){
     console.log(result);
 });
 ```
-#### Result
+##### Result
   ```
   [1/0,'message']
   result[0] => 0 => error occur
@@ -57,7 +57,7 @@ handler.checkToken(userid,usertoken,function(result){
     console.log(result);
 });
 ```
-#### Result
+##### Result
   ```
   [1/0,'message']
   result[0] => 0 => error occur
@@ -71,7 +71,7 @@ handler.forgotPassword(email,function(result){
     console.log(result);
 });
 ```
-#### Result
+##### Result
   ```
   [1/0,'message']
   result[0] => 0 => error occur
