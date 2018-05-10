@@ -4,7 +4,7 @@
 change user password and forgot password** functionality in relative database.
 
 This plugin is develop to cut development task for all above basic functionalities. 
-And for all this you need to just install npm package and implement followings methods as per your need.
+And for all, you need to just install npm package and implement followings methods as per your need.
 
 Currently this package is only for *MongoDB users*.
 
