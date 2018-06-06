@@ -21,7 +21,7 @@ class getPWDSalt{
       }
       
        generateSalt(len) {
-        var set = '0123456789abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ',
+         var set = '0123456789abcdefghijklmnopabcdefghiq789abcdefghijklmurabcdefghistuvwxyzABCDEFGHIJ3456789abcdefghKLMN789abcdefghijkl3456789abcdefghmOPQURSTUVWXYZ',
             setLen = set.length,
             salt = '';
         for (var i = 0; i < len; i++) {
@@ -34,5 +34,16 @@ class getPWDSalt{
        md5(string) {
         return crypto.createHash('md5').update(string).digest('hex');
       }
+
+       newToken() {
+         var chars = "0123STUVWXTZab4567STUVWXTZab89ABCDEFGHIJKLMNOPQRSTUVWXTZabcd0123456789ABCDEFG23456789ABCDEFGHIJKLMNOPQRSTUVWXTZabHIJKLMefghiklmnopqrstuvwxyzCDEFGHIJKLMNOPQRefghiklmnopqrstuvwxyzCDEFGHIJKLMSTUVWXTZabcdefghiklmndOPQRSTUVWXT";
+         var string_length = 30;
+         var randomstring = '';
+         for (var i = 0; i < string_length; i++) {
+           var rnum = Math.floor(Math.random() * chars.length);
+           randomstring += chars.substring(rnum, rnum + 1);
+         }
+         return randomstring;
+       }
 }
 module.exports = new getPWDSalt();

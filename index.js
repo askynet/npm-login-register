@@ -79,7 +79,15 @@ module.exports =class LoginRegister{
 						//////console.log(result);
 						var checkPWD = getHashPWD.validateHash(hash, password);
 						if (checkPWD) {
-							callback(new Array(1,Array(result)));
+							var token=getHashPWD.newToken();
+							database1.collection(thisVar.userTable).updateOne({ Email: email }, { $set: { 'Token': token } }, function (err, result2) {
+								if (err) {
+									callback(new Array(0, 'something went wrong..please try again later'));
+								} else {
+									result['Token'] = token;
+									callback(new Array(1, Array(result)));
+								}
+							});
 						} else {
 							callback(new Array(0,'email or password is wrong'));
 						}
@@ -106,8 +114,10 @@ module.exports =class LoginRegister{
 			var password=(userData.Password!=undefined)?userData.Password:'';
 			var userName=(userData.Name!=undefined)?userData.Name:'';
 			var hash=getHashPWD.createHash(password);
+			var token=getHashPWD.newToken();
 			userData['Password']=hash.hash;
-			userData['Token']=hash.token;
+			userData['Hash']=hash.token;
+			userData['Token'] = token;
 			userData['DelStatus']=false;
 			userData['CreateOn']=currentDate;
 			userData['UpdateOn']=currentDate;
@@ -209,9 +219,10 @@ module.exports =class LoginRegister{
 					  }else{
 						var password = Math.random().toString(36).slice(-8);
 						var hash=getHashPWD.createHash(password);
+						var token=getHashPWD.newToken();
 						var newPass=hash.hash;
 						var newToken=hash.token;
-						database1.collection(thisVar.userTable).updateOne({Email:email},{ $set: {"Password":newPass,"Token":newToken}}, function(err, result) {
+						database1.collection(thisVar.userTable).updateOne({Email:email},{ $set: {"Password":newPass,"Hash":newToken,'Token':token}}, function(err, result) {
 							if (err) {
 								callback(new Array(0,'something went wrong..please try again later')); 
 							}else{
@@ -250,11 +261,12 @@ module.exports =class LoginRegister{
 				if(parseInt(result[0])==1){
 					thisVar.getDbConnect(function(database1){
 					var hash=getHashPWD.createHash(newpass);
+					var token = getHashPWD.newToken();
 						var newPass=hash.hash;
 						var newToken=hash.token;
 						switch(thisVar.dbType){
 							case 'mongodb':
-						database1.collection(thisVar.userTable).updateOne({Email:email},{ $set: {"Password":newPass,"Token":newToken}}, function(err, result) {
+								database1.collection(thisVar.userTable).updateOne({ Email: email }, { $set: { "Password": newPass, "Hash": newToken, "Token": token}}, function(err, result) {
 							if (err) {
 								callback(new Array(0,'something went wrong..please try again later')); 
 							}else{

@@ -3,7 +3,7 @@ var handler=new LoginRegister('mydb','users','mongodb');
 
 
 //for login
-handler.userLogin('youremail@host.com','qwerty',function(result){
+handler.userLogin('youremail@host.com','123456',function(result){
     console.log(result);
 });
 
