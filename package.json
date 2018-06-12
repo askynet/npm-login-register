@@ -1,6 +1,6 @@
 {
   "name": "npm-login-register",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "description": "Easy way to register user and get validation for further login and accesing any app with backend",
   "main": "index.js",
   "scripts": {

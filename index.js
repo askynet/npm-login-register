@@ -70,21 +70,21 @@ module.exports =class LoginRegister{
 			if(database1!=null){
 				switch(thisVar.dbType){
 					case 'mongodb':
-					database1.collection(thisVar.userTable).findOne({ "Email": email }).then(function (result) {
+					database1.collection(thisVar.userTable).findOne({ "email": email }).then(function (result) {
 					
 						if (result==null)
 						   callback(new Array(0,'email or password is wrong'));
 						else{
-							var hash = result.Password;
+							var hash = result.password;
 						//////console.log(result);
 						var checkPWD = getHashPWD.validateHash(hash, password);
 						if (checkPWD) {
 							var token=getHashPWD.newToken();
-							database1.collection(thisVar.userTable).updateOne({ Email: email }, { $set: { 'Token': token } }, function (err, result2) {
+							database1.collection(thisVar.userTable).updateOne({ email: email }, { $set: { 'token': token } }, function (err, result2) {
 								if (err) {
 									callback(new Array(0, 'something went wrong..please try again later'));
 								} else {
-									result['Token'] = token;
+									result['token'] = token;
 									callback(new Array(1, Array(result)));
 								}
 							});
@@ -108,19 +108,19 @@ module.exports =class LoginRegister{
 	}
 
 	userRegister(userData,callback){
-		if(userData.Email!=undefined&&email_validator.validate(userData.Email) && userData.Password.toString().length>5 && userData.Name.length>2){
+		if(userData.email!=undefined&&email_validator.validate(userData.email) && userData.password.toString().length>5 && userData.name.length>2){
 			var currentDate=new Date();
-			var email=(userData.Email!=undefined)?userData.Email:'';
-			var password=(userData.Password!=undefined)?userData.Password:'';
-			var userName=(userData.Name!=undefined)?userData.Name:'';
+			var email=(userData.email!=undefined)?userData.email:'';
+			var password=(userData.password!=undefined)?userData.password:'';
+			var userName=(userData.name!=undefined)?userData.name:'';
 			var hash=getHashPWD.createHash(password);
 			var token=getHashPWD.newToken();
-			userData['Password']=hash.hash;
-			userData['Hash']=hash.token;
-			userData['Token'] = token;
-			userData['DelStatus']=false;
-			userData['CreateOn']=currentDate;
-			userData['UpdateOn']=currentDate;
+			userData['password']=hash.hash;
+			userData['hash']=hash.token;
+			userData['token'] = token;
+			userData['delStatus']=false;
+			userData['createOn']=currentDate;
+			userData['updateOn']=currentDate;
 
 			var thisVar=this;
 		    this.getDbConnect(function(database1){
@@ -128,7 +128,7 @@ module.exports =class LoginRegister{
 			//	console.log(thisVar.dbType)
 				switch(thisVar.dbType){
 					case 'mongodb':
-				database1.collection(thisVar.userTable).findOne({ "Email": email }).then(function (result) {
+				database1.collection(thisVar.userTable).findOne({ "email": email }).then(function (result) {
 					if (result == null) {
 						database1.collection(thisVar.userTable).insertOne(userData, function (error, response) {
 							if(error) {
@@ -144,7 +144,7 @@ module.exports =class LoginRegister{
 				});
 				break;
 				 case 'mysql':
-				 var userString="SELECT * FROM "+thisVar.userTable+" WHERE Email="+email;
+				 var userString="SELECT * FROM "+thisVar.userTable+" WHERE email="+email;
 				 database1.query(userString, function (err, result) {
 					if (err) {
 
@@ -162,13 +162,13 @@ module.exports =class LoginRegister{
 			
 		}else{
 			var msg="Invalid parameters";
-			if(userData.Name.length<3){
+			if(userData.name.length<3){
 				msg="Name should be greater than 3 char long"
 			}
-			if(userData.Password.toString().length<6){
+			if(userData.password.toString().length<6){
 				msg="Password should be greater than 6 char long";
 			}
-			if(userData.Email==undefined || !email_validator.validate(userData.Email)){
+			if(userData.email==undefined || !email_validator.validate(userData.email)){
 				msg="Invalid email address";
 			}
 			
@@ -183,14 +183,18 @@ module.exports =class LoginRegister{
 				try{
 					switch(thisVar.dbType){
 						case 'mongodb':
-					var _userId=new mongodb.ObjectId(userId);
-				    database1.collection(thisVar.userTable).findOne({ "_id": _userId ,Token:token }).then(function (result) {
-					  if (result==null){
-						callback(new Array(0,'authentication failed')); 
-					  }else{
-						callback(new Array(1,'valid user')); 
-					  }
-					});
+					try{
+						var _userId = new mongodb.ObjectId(userId);
+						database1.collection(thisVar.userTable).findOne({ "_id": _userId, token: token }).then(function (result) {
+							if (result == null) {
+								callback(new Array(0, 'authentication failed'));
+							} else {
+								callback(new Array(1, 'valid user',result));
+							}
+						});
+					}catch(e){
+						callback(new Array(0, 'authentication failed'));
+					}
 					break;
 
 					case 'mysql':
@@ -213,7 +217,7 @@ module.exports =class LoginRegister{
 				try{
 					switch(thisVar.dbType){
 						case 'mongodb':
-				    database1.collection(thisVar.userTable).findOne({ "Email":email }).then(function (result) {
+				    database1.collection(thisVar.userTable).findOne({ "email":email }).then(function (result) {
 					  if (result==null){
 						callback(new Array(1,'if your email id is present in db then we will sent you latest password on your mailbox')); 
 					  }else{
@@ -222,7 +226,7 @@ module.exports =class LoginRegister{
 						var token=getHashPWD.newToken();
 						var newPass=hash.hash;
 						var newToken=hash.token;
-						database1.collection(thisVar.userTable).updateOne({Email:email},{ $set: {"Password":newPass,"Hash":newToken,'Token':token}}, function(err, result) {
+						database1.collection(thisVar.userTable).updateOne({email:email},{ $set: {"password":newPass,"hash":newToken,'token':token}}, function(err, result) {
 							if (err) {
 								callback(new Array(0,'something went wrong..please try again later')); 
 							}else{
@@ -266,7 +270,7 @@ module.exports =class LoginRegister{
 						var newToken=hash.token;
 						switch(thisVar.dbType){
 							case 'mongodb':
-								database1.collection(thisVar.userTable).updateOne({ Email: email }, { $set: { "Password": newPass, "Hash": newToken, "Token": token}}, function(err, result) {
+								database1.collection(thisVar.userTable).updateOne({ email: email }, { $set: { "password": newPass, "hash": newToken, "token": token}}, function(err, result) {
 							if (err) {
 								callback(new Array(0,'something went wrong..please try again later')); 
 							}else{

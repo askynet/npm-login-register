@@ -36,9 +36,9 @@ var handler=new LoginRegister(dbName,tableName,dbType);
 ## User Registration
 ```
 userData={
-    Email:'youremail@host.com',
-    Name:"aka",
-    Password:123456,
+    email:'youremail@host.com',
+    name:"aka",
+    password:123456,
     ......,
     ......
 }
