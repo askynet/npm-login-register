@@ -79,6 +79,8 @@ handler.checkToken(userid,usertoken,function(result){
   [1/0,'message']
   result[0] == 0 => error occur
   result[0] == 1 => success
+  result[1] => reponse msg
+  result[2] => user data if result[0]==1
   ```
 ## Forgot Password
 ```
